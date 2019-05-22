@@ -5,7 +5,7 @@
 </template>
 <script type="text/javascript">
   export default {
-    name:'article',
+    name:'article_detail',
     props:{
       artid:String
     },

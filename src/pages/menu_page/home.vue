@@ -2,7 +2,8 @@
 <div class="menu-home">
   <div class="art-group">
     <div class="art-item" v-for="(item,index) in articleData" :key="index" @click="linkToDetail(item.id)">
-      <img  class="art-item-cover" src="../assets/icon-art-logo.png" alt="">
+      <img class="art-item-cover" :onerror="artErrorImg" :src="item.post_thumbnail_image" alt="">
+      <!-- @error="this.src='../../assets/icon-art-logo.png'" -->
       <div class="art-item-content">
         <div class="art-content-text" v-html="item.excerpt.rendered">
 
@@ -13,6 +14,7 @@
       </div>
     </div>
   </div>
+
 </div>
 </template>
 <script type="text/javascript">
@@ -20,6 +22,7 @@ export default {
   name: 'Home',
   data() {
     return {
+      artErrorImg: 'this.src="' + require('../../assets/icon-art-logo.png') + '"',
       articleData: []
     }
   },
@@ -32,13 +35,21 @@ export default {
       })
     },
     linkToDetail: function(id) {
-
       const artid = id;
-      this.$router.push({ name: 'article_detail', params: { artid }});
+      this.$router.push({
+        name: 'article_detail',
+        params: {
+          artid
+        }
+      });
     }
   },
   created: function() {
     this.getArticleList();
+    console.log(this.$store)
+  },
+  components: {
+
   }
 }
 </script>
