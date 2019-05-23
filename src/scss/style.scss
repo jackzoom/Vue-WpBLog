@@ -4,3 +4,24 @@
   margin: 0;
   padding: 0;
 }
+.nav-container{
+  padding: 1.3rem 0 1.5rem 0;
+}
+#app .header-bar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #fff;
+}
+.header-bar .header-title {
+  padding: 0.3rem;
+  font-size: 0.6rem;
+  font-weight: bold;
+  font-family: cursive;
+  display: inline-block;
+}
+.no-header{
+  padding-top: .2rem;
+}

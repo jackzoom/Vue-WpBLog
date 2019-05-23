@@ -14,9 +14,15 @@ import './scss/style.scss'
 import {
   apiURL
 } from './utils/api'
-
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
+// 滚动条插件
+import BScroll from 'better-scroll'
+//滚动
+Vue.prototype.$BScroll=BScroll;
 window['apiURL'] = apiURL
 
+Vue.use(Mint);
 Vue.use(VueAxios, Axios);
 
 /**
