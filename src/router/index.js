@@ -15,7 +15,6 @@ export default new Router({
       title: '主页',
       component: Home,
       meta: {
-        noPageAnimation: true,
         pageTitle: '主页',
         keepAlive: true
       }
@@ -24,6 +23,9 @@ export default new Router({
       name: 'list',
       title: '列表',
       component: List,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/mine',
       name: 'mine',

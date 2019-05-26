@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props:[
+  props: [
 
   ],
   data() {
@@ -41,9 +41,12 @@ export default {
   },
   methods: {
     changeNav(name) {
-      console.log(this);
       this.navIndexName = name;
     }
+  },
+  created() {
+    console.log(this.$route)
+    this.navIndexName = this.$route.name
   }
 }
 </script>

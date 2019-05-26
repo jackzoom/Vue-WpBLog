@@ -4,24 +4,50 @@
   margin: 0;
   padding: 0;
 }
-.nav-container{
-  padding: 1.3rem 0 1.5rem 0;
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
-#app .header-bar{
+
+.nav-container {
+  padding: 1.3rem 0 1.5rem;
+}
+
+#app .header-bar {
   position: fixed;
+  height: 1.5rem;
+  line-height: 1.5rem;
   top: 0;
   left: 0;
   right: 0;
   z-index: 999;
   background: #fff;
 }
+
 .header-bar .header-title {
-  padding: 0.3rem;
+  padding: 0 0.3rem;
   font-size: 0.6rem;
   font-weight: bold;
   font-family: cursive;
   display: inline-block;
 }
-.no-header{
-  padding-top: .2rem;
+
+.no-header {
+  padding-top: 0.2rem;
+}
+
+.container-group {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  bottom: 1rem;
+  left: 0;
+}
+
+.loaded-box {
+  padding: 0.35rem 0;
+  text-align: center;
+  color: #bbb;
+  font-size: 0.35rem;
 }

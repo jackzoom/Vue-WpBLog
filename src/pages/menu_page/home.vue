@@ -1,8 +1,8 @@
 <template>
 <div class="menu-home" ref="wrapper" :style="{ height: (wrapperHeight-50) + 'px' }">
-  <mt-loadmore :top-method="loadTop" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="40">
-    <div class="nav-container no-header" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
-      <div  class="art-item" v-for="(item,index) in articleData" :key="index" @click="linkToDetail(item.id)">
+  <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="40">
+    <div class="nav-container no-header" infinite-scroll-disabled="loading">
+      <div class="art-item" v-for="(item,index) in articleData" :key="index" @click="linkToDetail(item.id)">
         <img class="art-item-cover" :onerror="artErrorImg" :src="item.post_full_image" alt="">
         <!-- @error="this.src='../../assets/icon-art-logo.png'" -->
         <div class="art-item-content">
@@ -14,11 +14,19 @@
           </div>
         </div>
       </div>
+      <div v-show="!loaded" class="loaded-box">
+        <a href="javascript:;" @click="loadData">加载更多</a>
+      </div>
+      <!-- 加载完毕 -->
+      <div v-show="loaded" class="loaded-box">
+        加载完了~
+      </div>
     </div>
   </mt-loadmore>
 </div>
 </template>
 <script type="text/javascript">
+import Api from '../../utils/api'
 import {
   Loadmore,
   InfiniteScroll
@@ -27,21 +35,16 @@ export default {
   name: 'Home',
   data() {
     return {
-      loading:false,
+      pageSize: 3,
+      pageIndex: 1, //当前页索引
+      loaded: false,
+      loading: false,
       wrapperHeight: 0,
-      allLoaded: false,
       artErrorImg: 'this.src="' + require('../../assets/images/bg-list-artcile.jpg') + '"',
       articleData: []
     }
   },
   methods: {
-    getArticleList: function() {
-      const that = this
-      this.axios.get(apiURL.article_list).then((response) => {
-        console.log(response.data);
-        this.articleData = response.data
-      })
-    },
     linkToDetail: function(id) {
       const artid = id;
       this.$router.push({
@@ -52,34 +55,61 @@ export default {
       });
     },
     loadTop() {
-      const that = this
-      this.axios.get(apiURL.article_list).then((response) => {
+      const that = this;
+      that.pageIndex = 1;
+      that.loaded = false;
+      this.axios.get(Api.getArticleList({
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
+      })).then((response) => {
         console.log(response.data);
         this.articleData = response.data;
         this.$refs.loadmore.onTopLoaded();
+        this.$refs.loadmore.onBottomLoaded();
+        that.pageIndex += 1;
+        if (response.data.length < this.pageSize) {
+          that.loaded = true;
+        }
       })
     },
-    loadMore() {
+    loadData() {
       this.loading = true;
-      const that = this
-      this.axios.get(apiURL.article_list).then((response) => {
+      const that = this;
+      if (that.loaded) {
+        return
+      }
+      this.axios.get(Api.getArticleList({
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
+      })).then((response) => {
         console.log(response.data);
         that.articleData = that.articleData.concat(response.data);
-        setTimeout(()=>{
-          that.loading = false;
-        },10000)
+        that.loading = false;
+        that.pageIndex += 1;
+        if (response.data.length < this.pageSize) {
+          that.loaded = true;
+        }
+        this.$refs.loadmore.onBottomLoaded();
       })
     }
   },
   created: function() {
-    this.getArticleList();
-    console.log(this.$store)
+    this.loadData();
   },
   mounted() {
     // 父控件要加上高度，否则会出现上拉不动的情况
     this.wrapperHeight =
       document.documentElement.clientHeight -
       this.$refs.wrapper.getBoundingClientRect().top;
+  },
+  activated:function(){
+    console.log("Home页面进入页面",this);
+  },
+  deactivated:function(){
+    console.log("Home页面进入内存");
+  },
+  destroyed:function(){
+    console.log('页面被销毁');
   },
   components: {
     'mt-loadmore': Loadmore,
