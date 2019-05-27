@@ -6,7 +6,7 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive" class="animated-view"></router-view>
 
-      <nav-menu></nav-menu>
+      <nav-menu v-show="this.$route.meta.navBar"></nav-menu>
 
   </div>
 </template>

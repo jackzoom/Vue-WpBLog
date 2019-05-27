@@ -15,6 +15,7 @@ export default new Router({
       title: '主页',
       component: Home,
       meta: {
+        navBar: true,
         pageTitle: '主页',
         keepAlive: true
       }
@@ -24,6 +25,7 @@ export default new Router({
       title: '列表',
       component: List,
       meta: {
+        navBar: true,
         keepAlive: true
       }
     }, {
@@ -31,6 +33,9 @@ export default new Router({
       name: 'mine',
       title: '我的',
       component: Mine,
+      meta: {
+        navBar: true
+      }
     },
     {
       path: '/article/:artid',

@@ -4,16 +4,38 @@
         <span class="header-title">我的</span>
       </header>
       <div class="container-group">
-        <a href="javascript:;" @click="pageTo('/')">跳转Home</a>
       </div>
+      <!-- <a href="javascript:;" @click="pageTo('/')">跳转Home</a> -->
     </div>
 </template>
 
 <script>
 export default {
+  name: 'MenuMine',
+  data() {
+    return {
 
+    }
+  },
+  methods: {
+
+  },
+  created(){
+    this.$nextTick(() => {
+      console.log("created")
+    })
+  },
+  mounted() {
+    this.$nextTick(() => {
+      console.log("mounted")
+    })
+  },
+  computed: {
+
+  }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+
 </style>

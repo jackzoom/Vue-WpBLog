@@ -26,7 +26,6 @@
 </div>
 </template>
 <script type="text/javascript">
-import Api from '../../utils/api'
 import {
   Loadmore,
   InfiniteScroll
@@ -58,38 +57,41 @@ export default {
       const that = this;
       that.pageIndex = 1;
       that.loaded = false;
-      this.axios.get(Api.getArticleList({
+      this.$store.dispatch('getArticleList', {
         pageSize: this.pageSize,
         pageIndex: this.pageIndex
-      })).then((response) => {
-        console.log(response.data);
-        this.articleData = response.data;
+      }).then((data) => {
+        console.log(data);
+        this.articleData = data;
         this.$refs.loadmore.onTopLoaded();
         this.$refs.loadmore.onBottomLoaded();
         that.pageIndex += 1;
-        if (response.data.length < this.pageSize) {
+        if (data.length < this.pageSize) {
           that.loaded = true;
         }
       })
     },
     loadData() {
+      console.log(this)
       this.loading = true;
       const that = this;
       if (that.loaded) {
         return
       }
-      this.axios.get(Api.getArticleList({
+      this.$store.dispatch('getArticleList', {
         pageSize: this.pageSize,
         pageIndex: this.pageIndex
-      })).then((response) => {
-        console.log(response.data);
-        that.articleData = that.articleData.concat(response.data);
+      }).then((data) => {
+        console.log(data);
+        that.articleData = that.articleData.concat(data);
         that.loading = false;
         that.pageIndex += 1;
-        if (response.data.length < this.pageSize) {
+        if (data.length < this.pageSize) {
           that.loaded = true;
         }
         this.$refs.loadmore.onBottomLoaded();
+      }).catch((err)=>{
+        console.log(err)
       })
     }
   },
@@ -102,13 +104,13 @@ export default {
       document.documentElement.clientHeight -
       this.$refs.wrapper.getBoundingClientRect().top;
   },
-  activated:function(){
-    console.log("Home页面进入页面",this);
+  activated: function() {
+    console.log("Home页面进入页面", this);
   },
-  deactivated:function(){
+  deactivated: function() {
     console.log("Home页面进入内存");
   },
-  destroyed:function(){
+  destroyed: function() {
     console.log('页面被销毁');
   },
   components: {
