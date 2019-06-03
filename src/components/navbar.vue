@@ -10,7 +10,7 @@
 <script>
 export default {
   props: [
-    
+
   ],
   data() {
     return {
@@ -84,6 +84,13 @@ export default {
                 color: #00d8a0;
             }
         }
+    }
+    &:after {
+        content: "";
+        display: table;
+        border-top: 1px solid #f1f1f1;
+        position: absolute;
+        width: 100%;
     }
 }
 </style>

@@ -33,6 +33,13 @@ export default {
 <style>
 body,
 html {
-  background: #ffffff;
+  background: #fefefe;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+#app{
+  flex:1;
+  width: 100%;
 }
 </style>

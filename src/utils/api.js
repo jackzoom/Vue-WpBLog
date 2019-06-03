@@ -34,6 +34,7 @@ axios.interceptors.request.use(function(config) {
   return config;
 }, function(error) {
   // 对请求错误做些什么
+
   return Promise.reject(error);
 });
 
@@ -41,6 +42,7 @@ axios.interceptors.request.use(function(config) {
 axios.interceptors.response.use(function(response) {
   // 根据响应返回的headers进行拦截
   // 对响应数据做点什么
+//  console.log("响应拦截器：",response)
   return response;
 }, function(error) {
   // 对响应错误做点什么
@@ -109,9 +111,3 @@ export default {
     //  return Base_Url + "posts?per_page=" + obj.pageSize + "&page=" + obj.pageIndex
   }
 }
-
-
-// module.exports = {
-// article_detail: Base_Url + 'posts/',
-// article_list: Base_Url + 'posts?per_page=20&page=1'
-// }

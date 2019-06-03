@@ -90,7 +90,7 @@ export default {
           that.loaded = true;
         }
         this.$refs.loadmore.onBottomLoaded();
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log(err)
       })
     }
@@ -138,11 +138,11 @@ export default {
         font-size: 0.35rem;
         color: #444;
         line-height: 1.2228;
-        height: 1rem;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
+        word-break: break-all;
+        // display: -webkit-box;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: 2;
+        // overflow: hidden;
     }
     .art-content-tags {
         padding: 0.2rem 0;
